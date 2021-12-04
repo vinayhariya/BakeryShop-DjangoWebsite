@@ -1,0 +1,53 @@
+{% load static %}
+{% load cart_template_tags %}
+<nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+   <div class="container">
+      <a class="navbar-brand waves-effect" href="{% url 'website:home_page' %}">
+      <img src="{% static 'website/bakery_logo_2.png' %}"  alt="" width="65" height="52">
+      <span class="blue-text" style="font-size: 125%; background: inherit; font-weight: bold">Royal Bakery</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+         <ul class="navbar-nav mr-auto"></ul>
+         <ul class="navbar-nav nav-flex-icons">
+            {% if request.user.is_authenticated %}
+            <!-- if a returning customer or a registered user is using the website -->
+            <li class="nav-item">
+               <a href="{% url 'website:order-summary' %}"class="nav-link waves-effect">
+               <span class="badge red z-depth-1 mr-1"> {{request.user|cart_item_count}} </span>
+               <i class="fas fa-shopping-cart"></i>
+               <span class="clearfix d-none d-sm-inline-block mr-2 "> Cart </span>
+               </a>
+            </li>
+            {% if request.user|past_orders_present %}
+            <li class="nav-item mr-2">
+               <a class="nav-link waves-effect" href="{% url 'website:past-orders' %}">
+               <span class="clearfix d-none d-sm-inline-block"> Past Orders </span>
+               </a>
+            </li>
+            {%endif%}
+            <li class="nav-item">
+               <a class="nav-link waves-effect" href="{% url 'account_logout' %}">
+               <span class="clearfix d-none d-sm-inline-block"> Logout </span>
+               </a>
+            </li>
+            {% else %}
+            <!-- if an anonymous user or a new user is using the website -->
+            <li class="nav-item">
+               <a class="nav-link waves-effect mr-2" href="{% url 'account_login' %}">
+               <span class="clearfix d-none d-sm-inline-block"> Login </span>
+               </a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link waves-effect" href="{% url 'account_signup' %}">
+               <span class="clearfix d-none d-sm-inline-block"> Signup </span>
+               </a>
+            </li>
+            {% endif %}
+         </ul>
+      </div>
+   </div>
+</nav>

@@ -1,0 +1,7 @@
+django
+pillow
+xhtml2pdf
+stripe
+django-allauth
+django-crispy-forms
+psycopg2
